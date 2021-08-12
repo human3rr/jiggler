@@ -2,7 +2,6 @@
 
 import pynput.mouse
 from pynput.keyboard import Key, Listener
-from pynput.mouse import Button, Controller
 from time import sleep
 from datetime import datetime
 import sys
@@ -17,7 +16,6 @@ it = 0
 stopMotion = False
 
 
-mouse = Controller()
 def on_move(x, y):
     #print('Pointer moved to {0}'.format((x, y)))
     global it
@@ -62,23 +60,24 @@ kblistener = Listener(
 #Start listeners for events
 mouselistener.start()
 kblistener.start()
+import pyautogui
+pyautogui.FAILSAFE = False
 
 def jiggle():
 	global stopMotion
 	loop = 0
 	while(loop < 5):
 		for i in range(0, 60):
-			mouse.move(0, 5)
-			sleep(.01)
+			pyautogui.move(0, 5)
+			sleep(.001)
 			if stopMotion:
 				break
 		for i in range(0, 60):
-			mouse.move(0, -5)
-			sleep(.01)
+			pyautogui.move(0, -5)
+			sleep(.001)
 			if stopMotion:
 				break
 		loop = loop + 1
-
 while(True):
 	sleep(1)
 	it = it + 1
